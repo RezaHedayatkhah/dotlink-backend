@@ -34,24 +34,32 @@ class NewView(APIView):
         print(country)
         print(ip)
 
-        location = Location.objects.filter(link=link, ip=ip).first()
-        if location:
+        if request.data['has_seen'] == 1:
             return Response({
                 'status': 'success',
                 'data': {
                     'url': serializer.data
                 }
             })
-        else:
-            link.view += 1
-            link.save()
-            Location.objects.create(user=link.user, link=link, ip=ip, country=country['country_name'], country_code=country['country_code'])
-            return Response({
-                'status': 'success',
-                'data': {
-                    'url': serializer.data
-                }
-            })
+        elif request.data['has_seen'] == 0:
+            location = Location.objects.filter(link=link, ip=ip).first()
+            if location:
+                return Response({
+                    'status': 'success',
+                    'data': {
+                        'url': serializer.data
+                    }
+                })
+            else:
+                link.view += 1
+                link.save()
+                Location.objects.create(user=link.user, link=link, ip=ip, country=country['country_name'], country_code=country['country_code'])
+                return Response({
+                    'status': 'success',
+                    'data': {
+                        'url': serializer.data
+                    }
+                })
 
 class LocationsView(APIView):
     permission_classes = (IsAuthenticated,)
