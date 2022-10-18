@@ -34,14 +34,14 @@ class NewView(APIView):
         print(country)
         print(ip)
 
-        if request.data['has_seen'] == 1:
+        if request.data.get("has_seen", 0) == 1:
             return Response({
                 'status': 'success',
                 'data': {
                     'url': serializer.data
                 }
             })
-        elif request.data['has_seen'] == 0:
+        elif request.data.get("has_seen", 0) == 0:
             location = Location.objects.filter(link=link, ip=ip).first()
             if location:
                 return Response({
