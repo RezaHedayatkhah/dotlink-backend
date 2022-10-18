@@ -30,7 +30,7 @@ class NewView(APIView):
 
         # get user location
         geo = GeoIP2()
-        country = geo.country("141.95.174.152")
+        country = geo.country(ip)
         print(country)
         print(ip)
 
