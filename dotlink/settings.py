@@ -26,7 +26,9 @@ SECRET_KEY = 'django-insecure-8o=)=d(s651m1@y#6)kscv)oboihp4pjigf%-c$s0+x*i5ty*y
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "dotlinkbackend.herokuapp.com",
+]
 
 
 # Application definition
@@ -169,6 +171,7 @@ SPECTACULAR_SETTINGS = {
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
+    "dotlinkbackend.herokuapp.com"
 ]
 
 # geo location database
