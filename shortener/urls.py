@@ -6,7 +6,7 @@ router = DefaultRouter()
 router.register(r'links', views.LinkViewSet, basename='link')
 
 urlpatterns = [
-    path('link/<str:url_code>/', views.NewView.as_view()),
+    path('link/', views.NewView.as_view()),
     path('locations/<str:url_code>/', views.LocationsView.as_view()),
     path('locations/', views.AllLocationsView.as_view()),
     path('info/', views.NumberOfViewsAndLinksView.as_view()),
