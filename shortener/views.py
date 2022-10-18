@@ -17,8 +17,8 @@ class LinkViewSet(viewsets.ModelViewSet):
     
 
 class NewView(APIView):
-    def get(self, request, url_code):
-        link = get_object_or_404(Link, url_code=url_code)
+    def post(self, request):
+        link = get_object_or_404(Link, url_code=request.data['url_code'])
         serializer = PublicLinkSerializer(link)
 
         # get user ip
@@ -30,7 +30,7 @@ class NewView(APIView):
 
         # get user location
         geo = GeoIP2()
-        country = geo.country(ip)
+        country = geo.country("141.95.174.152")
         print(country)
         print(ip)
 
