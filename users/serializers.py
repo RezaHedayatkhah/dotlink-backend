@@ -67,10 +67,11 @@ class UserSerializer(serializers.ModelSerializer):
                 raise serializers.ValidationError({'password': 'لطفا رمزعبور جدید را وارد کنید'})        
 
         return attrs    
-    def save(self, **kwargs):
 
-        user = self.context['request'].user
-        user.set_password(self.validated_data['password'])
-        user.save()
-
-        return user
+    def update(self, instance, validated_data):
+        instance = super().update(instance, validated_data)
+        if validated_data.get('password', None):
+            instance.set_password(validated_data['password'])
+            instance.save()
+        
+        return instance
